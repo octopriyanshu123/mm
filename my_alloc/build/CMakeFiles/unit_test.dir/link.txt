@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/unit_test.dir/test/unit_test.cpp.o -o unit_test  -Wl,-rpath,/home/octobotics/Desktop/Working/memory_management/my_alloc/build libmyalloc.so /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a 
+/usr/bin/c++ CMakeFiles/unit_test.dir/test/unit_test.cpp.o -o unit_test  -Wl,-rpath,/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build libmyalloc.so /usr/lib/x86_64-linux-gnu/libgtest_main.a /usr/lib/x86_64-linux-gnu/libgtest.a 

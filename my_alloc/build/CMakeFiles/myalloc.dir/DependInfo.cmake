@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/octobotics/Desktop/Working/memory_management/my_alloc/src/my_alloc.cpp" "CMakeFiles/myalloc.dir/src/my_alloc.cpp.o" "gcc" "CMakeFiles/myalloc.dir/src/my_alloc.cpp.o.d"
+  "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/src/my_alloc.cpp" "CMakeFiles/myalloc.dir/src/my_alloc.cpp.o" "gcc" "CMakeFiles/myalloc.dir/src/my_alloc.cpp.o.d"
   )
 
 # Targets to which this target links.

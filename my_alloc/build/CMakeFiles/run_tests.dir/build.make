@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/octobotics/Desktop/Working/memory_management/my_alloc
+CMAKE_SOURCE_DIR = /home/octobotics/Desktop/Working/memory_management/mm/my_alloc
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/octobotics/Desktop/Working/memory_management/my_alloc/build
+CMAKE_BINARY_DIR = /home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build
 
 # Utility rule file for run_tests.
 
@@ -67,7 +67,7 @@ include CMakeFiles/run_tests.dir/compiler_depend.make
 include CMakeFiles/run_tests.dir/progress.make
 
 CMakeFiles/run_tests: unit_test
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running unit tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running unit tests"
 	./unit_test
 
 run_tests: CMakeFiles/run_tests
@@ -83,6 +83,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/octobotics/Desktop/Working/memory_management/my_alloc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/octobotics/Desktop/Working/memory_management/my_alloc /home/octobotics/Desktop/Working/memory_management/my_alloc /home/octobotics/Desktop/Working/memory_management/my_alloc/build /home/octobotics/Desktop/Working/memory_management/my_alloc/build /home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/octobotics/Desktop/Working/memory_management/mm/my_alloc /home/octobotics/Desktop/Working/memory_management/mm/my_alloc /home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build /home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build /home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 

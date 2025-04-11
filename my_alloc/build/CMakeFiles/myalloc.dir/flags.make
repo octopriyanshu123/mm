@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -Dmyalloc_EXPORTS
 
-CXX_INCLUDES = -I/home/octobotics/Desktop/Working/memory_management/my_alloc/include
+CXX_INCLUDES = -I/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/include
 
 CXX_FLAGS = -fPIC -std=gnu++20
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/octobotics/Desktop/Working/memory_management/my_alloc
+# Install script for directory: /home/octobotics/Desktop/Working/memory_management/mm/my_alloc
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -49,7 +49,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/my_alloc/proj/lib/libmyalloc.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/my_alloc/proj/lib" TYPE SHARED_LIBRARY FILES "/home/octobotics/Desktop/Working/memory_management/my_alloc/build/libmyalloc.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/my_alloc/proj/lib" TYPE SHARED_LIBRARY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/my_alloc/proj/lib/libmyalloc.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/my_alloc/proj/lib/libmyalloc.so")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -62,7 +62,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/my_alloc/proj/include" TYPE DIRECTORY FILES "/home/octobotics/Desktop/Working/memory_management/my_alloc/include/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/my_alloc/proj/include" TYPE DIRECTORY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/include/")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -73,5 +73,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/octobotics/Desktop/Working/memory_management/my_alloc/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

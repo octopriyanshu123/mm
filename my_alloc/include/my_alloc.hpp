@@ -5,10 +5,12 @@
 #include <mutex>
 #include <map>
 #include <memory>
+#include <sys/mman.h>
+#include <fcntl.h>
 #include <cstdlib>
 
 
-// The main allocator class
+// The main allocator class 
 class MYALLOC
 {
 public:
@@ -34,6 +36,9 @@ public:
 
     // Enable garbage collection (optional)
     void garbageCollect();
+
+    virtual void moniterFile(const char* path , int interval);
+    bool writeFile(const char* filename ,std::string str);
 
 private:
     // Structure to represent a block of allocated memory
@@ -73,6 +78,38 @@ private:
     void* dec_break_point(size_t size);
 
     std::string generate_random_string(size_t length);
+
+   
+};
+
+class MMap : public MYALLOC{
+    public:
+    MMap(const char* filename ) : filename(filename), src_ptr(nullptr), file_size(0), src_fd(-1) {
+        std::cout<<"MMap is created"<<std::endl;
+    }
+    MMap(){
+        std::cout<<"MMap is created"<<std::endl;
+    }
+    ~MMap(){
+        if (src_ptr != nullptr) {
+            munmap(src_ptr, file_size);  // Unmap the source file
+        }
+        if (src_fd != -1) {
+            close(src_fd);  // Close the file descriptor
+        }
+        std::cout<<"Deconstructor"<<std::endl;
+    }
+
+    void moniterFile(const char* path , int interval);
+    bool writeFileMmap(const char *path, std::string str, std::string *strPtr, size_t size, bool newLine, bool append); 
+    private:
+    bool mapFileInMemory();
+    const char* filename;
+    void* src_ptr;      // Pointer to the memory-mapped file
+    size_t file_size;   // Size of the file
+    int src_fd; 
+    void printContent() const ;
+
 };
 
 #endif // MY_ALLOC_HPP

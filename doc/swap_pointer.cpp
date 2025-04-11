@@ -13,8 +13,7 @@ int main() {
     cout << "Before swap (unique_ptr): a = " << *a << ", b = " << *b << endl;
     cout << "Before swap (unique_ptr) addresses: a = " << &a << ", b = " << &b << endl;
 
-    std::swap(*a, *b);
-
+    std::swap(*a, *b); 
     cout << "After swap (unique_ptr): a = " << *a << ", b = " << *b << endl;
     cout << "After swap (unique_ptr) addresses: a = " << &a << ", b = " << &b << endl;
 
