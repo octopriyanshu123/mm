@@ -1,3 +1,5 @@
+https://youtu.be/sZ8GJ1TiMdk?si=lgsGYubiK9-lPQCY
+
 #include <stdbool.h>
 #include <assert.h>
 #include <stdio.h>
@@ -76,13 +78,14 @@ void chunks_list_dump(const Chunk_List *list) {
     }
 }
 
+int chunks_list_find(Chunk_List *list , void* ptr){
 
+}
 heep_free(void * ptr){
-    for(size_t =0; i<heap_alloced_size; i++){
-        if(heap_alloced[i].start == ptr){
-
-        }
-    }
+   const int index = chunks_list_find(&alloced_chunks, ptr);
+   assert(index >=0 );
+   chunks_list_insert(&freed_chunks,alloced_chunks.chunks[index]);
+   chunks_list_remove(&alloced_chunks, (size_t) index);
 }
 
 int main() {
