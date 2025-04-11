@@ -1,0 +1,12 @@
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/myalloc.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/main_executable.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/unit_test.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/run.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/run_tests.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/test.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/edit_cache.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/rebuild_cache.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/list_install_components.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/install.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/install/local.dir
+/home/octobotics/Desktop/Working/memory_management/my_alloc/build/CMakeFiles/install/strip.dir
