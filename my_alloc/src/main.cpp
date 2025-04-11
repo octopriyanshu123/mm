@@ -30,6 +30,20 @@ int main(int argc,char ** argv) {
     // std::cout<<*ptr<<std::endl;
     // mm.deallocate(ptr);
 
+    
+    int id = mm.allocate("int");
+     //int id = mm.allocate("float");
+    //int id = mm.allocate("char");
+
+    //int val = mm.get(id);
+    // mm.set(id,5);
+    // mm.deallocate(id);
+
+
+
+
+
+
     // moniter the file  at interval
     // read the file set the int 1 
     // const char* filename = "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/include/my_alloc.hpp";
