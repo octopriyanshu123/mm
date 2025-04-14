@@ -18,12 +18,7 @@ Google Test provides two main types of assertions that determine the behavior of
 | **C-String Inequality**| Are the C-strings different?                                                   | `EXPECT_STRNE(str1, str2)`           | `ASSERT_STRNE(str1, str2)`          |
 | **Pointer is NULL**   | Is the pointer `nullptr`?                                                      | `EXPECT_EQ(ptr, nullptr)`            | `ASSERT_EQ(ptr, nullptr)`           |
 | **Pointer is NOT NULL** | Is the pointer not `nullptr`?                                                 | `EXPECT_NE(ptr, nullptr)`            | `ASSERT_NE(ptr, nullptr)`           |
-| **Float Equality**    | Are two floats equal?                                                          | `EXPECT_FLOAT_EQ(f1, f2)`            | `ASSERT_FLOAT_EQ(f1, f2)`           |
-| **Double Equality**   | Are two doubles equal?                                                         | `EXPECT_DOUBLE_EQ(d1, d2)`           | `ASSERT_DOUBLE_EQ(d1, d2)`          |
-| **Near Equality**     | Are two values within a certain delta?                                          | `EXPECT_NEAR(val1, val2, eps)`       | `ASSERT_NEAR(val1, val2, eps)`     |
-
----
-
+| **Float Equality**    | Are two floats equal?                                                          | `EXPECT_FLOAT_EQ(f1, f2)`            |+
 ### ❗ **Fatal vs. Non-Fatal Assertions**
 
 - **🔴 Fatal Assertion (`ASSERT_`)**  
