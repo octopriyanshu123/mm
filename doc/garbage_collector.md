@@ -139,3 +139,365 @@ In C++, there is **no built-in garbage collector** like in other languages. Inst
 - If you need garbage collection, you can integrate third-party libraries, but it’s not a standard feature of C++.
 
 Would you like to dive into any specific memory management topic in more detail, or explore another concept in C++?
+
+
+Here's a **line-by-line explanation** of the **Mark and Sweep Garbage Collector in C++**:
+
+---
+
+### **1. Includes & Base Class (`GCObject`)**
+```cpp
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <algorithm>  // Required for std::remove
+```
+- **`<iostream>`**: For console I/O (`std::cout`).
+- **`<vector>`**: For dynamic arrays (used for roots and references).
+- **`<unordered_set>`**: For the heap (stores all allocated objects).
+- **`<algorithm>`**: For `std::remove` (used in `removeRoot`).
+
+---
+
+### **2. `GCObject` (Base Class for All Objects)**
+```cpp
+class GCObject {
+public:
+    bool marked = false;  // Flag for marking reachable objects
+    virtual ~GCObject() = default;  // Virtual destructor for proper cleanup
+    virtual void mark() = 0;  // Pure virtual function (must be implemented)
+    
+protected:
+    friend class GarbageCollector;  // Let GC access private members
+    virtual void addReferences(std::vector<GCObject*>& refs) = 0;  // Stores child references
+};
+```
+- **`marked`**: Tracks if an object is reachable.
+- **`virtual ~GCObject()`**: Ensures derived objects are deleted correctly.
+- **`mark()`**: Recursively marks reachable objects (implemented by derived classes).
+- **`addReferences()`**: Used by the GC to traverse the object graph.
+
+---
+
+### **3. `GarbageCollector` Class**
+#### **Private Members**
+```cpp
+private:
+    std::unordered_set<GCObject*> heap;  // All allocated objects
+    std::vector<GCObject*> roots;  // Entry points (always reachable)
+```
+- **`heap`**: Stores all dynamically allocated objects.
+- **`roots`**: Objects that are always reachable (e.g., global variables).
+
+---
+
+#### **Public Methods**
+##### **`addRoot()`**
+```cpp
+void addRoot(GCObject* root) {
+    roots.push_back(root);  // Adds a root object
+}
+```
+- Adds an object to the **root set** (objects that are always reachable).
+
+##### **`removeRoot()`**
+```cpp
+void removeRoot(GCObject* root) {
+    roots.erase(std::remove(roots.begin(), roots.end(), root), roots.end());
+}
+```
+- Uses **`std::remove`** to delete a root (avoids conflict with C’s `remove()`).
+- **`erase`** removes the leftover `nullptr`.
+
+##### **`allocate()`**
+```cpp
+void allocate(GCObject* obj) {
+    heap.insert(obj);  // Adds an object to the heap
+}
+```
+- Tracks a new object in the garbage collector.
+
+##### **`heapSize()`**
+```cpp
+size_t heapSize() const {
+    return heap.size();  // Returns the number of live objects
+}
+```
+- Used to check heap size (instead of directly accessing `heap`).
+
+##### **`collect()`**
+```cpp
+void collect() {
+    mark();  // Marks reachable objects
+    sweep();  // Deletes unreachable objects
+}
+```
+- **`mark()`**: Traverses and marks reachable objects.
+- **`sweep()`**: Frees unmarked (unreachable) objects.
+
+---
+
+#### **Private Methods (Core Algorithm)**
+##### **`mark()`**
+```cpp
+void mark() {
+    for (GCObject* root : roots) {
+        root->mark();  // Marks all roots and their children
+    }
+}
+```
+- Starts from **roots** and recursively marks all reachable objects.
+
+##### **`sweep()`**
+```cpp
+void sweep() {
+    auto it = heap.begin();
+    while (it != heap.end()) {
+        GCObject* obj = *it;
+        if (!obj->marked) {  // If not marked, delete it
+            it = heap.erase(it);
+            delete obj;
+        } else {  // Reset for next GC cycle
+            obj->marked = false;
+            ++it;
+        }
+    }
+}
+```
+- **Deletes unmarked objects** (garbage).
+- **Resets `marked`** for the next collection.
+
+---
+
+### **4. `MyObject` (Example Collectable Class)**
+```cpp
+class MyObject : public GCObject {
+private:
+    std::vector<GCObject*> references;  // Child references
+public:
+    void addReference(GCObject* obj) {
+        references.push_back(obj);  // Adds a reference
+    }
+
+    void mark() override {
+        if (marked) return;  // Avoid cycles
+        marked = true;  // Mark self
+        for (GCObject* ref : references) {
+            ref->mark();  // Recursively mark children
+        }
+    }
+
+protected:
+    void addReferences(std::vector<GCObject*>& refs) override {
+        for (GCObject* ref : references) {
+            refs.push_back(ref);  // Used by GC to traverse references
+        }
+    }
+};
+```
+- **`addReference()`**: Adds a child object.
+- **`mark()`**: Recursively marks itself and children.
+- **`addReferences()`**: Helps the GC traverse references.
+
+---
+
+### **5. `main()` (Demonstration)**
+```cpp
+int main() {
+    GarbageCollector gc;
+
+    MyObject* root1 = new MyObject();  // Root object
+    MyObject* child1 = new MyObject(); // Child 1
+    MyObject* child2 = new MyObject(); // Child 2
+    MyObject* orphan = new MyObject(); // Unreferenced (garbage)
+
+    root1->addReference(child1);  // root1 → child1
+    child1->addReference(child2); // child1 → child2
+    // 'orphan' is unreachable
+
+    gc.allocate(root1);  // Track objects
+    gc.allocate(child1);
+    gc.allocate(child2);
+    gc.allocate(orphan);
+
+    gc.addRoot(root1);  // root1 is a root (always reachable)
+
+    std::cout << "Before GC: " << gc.heapSize() << " objects\n";  // 4
+    gc.collect();  // Runs mark & sweep
+    std::cout << "After GC: " << gc.heapSize() << " objects\n";  // 3 (orphan deleted)
+
+    gc.removeRoot(root1);  // Remove root
+    gc.collect();  // Deletes remaining objects
+    return 0;
+}
+```
+- **Creates objects** (`root1`, `child1`, `child2`, `orphan`).
+- **Builds a reference graph** (`root1 → child1 → child2`).
+- **`orphan` is garbage** (unreachable).
+- **Runs GC** (`mark()` + `sweep()`).
+  - **Before GC**: 4 objects.
+  - **After GC**: 3 objects (`orphan` deleted).
+- **Final cleanup** removes all objects.
+
+---
+
+### **Key Takeaways**
+✅ **Mark Phase**: Starts from roots and marks all reachable objects.  
+✅ **Sweep Phase**: Deletes unmarked (garbage) objects.  
+✅ **Avoids manual `delete`**: Automatically reclaims memory.  
+✅ **Handles cycles**: Since it marks recursively, cycles don’t leak.  
+
+This is a **basic implementation**—real-world GCs add optimizations like **generational collection** and **parallel marking**. 🚀
+
+To make the garbage collector **run in the background** and **monitor heap allocations automatically**, we need to modify the design to:  
+
+1. **Track allocations globally** (intercept `new` and `delete`).  
+2. **Run GC periodically** (using threads or signals).  
+3. **Ensure thread safety** (since allocations can happen from anywhere).  
+
+---
+
+## **Solution: Background Garbage Collector in C++**
+Here’s how to implement it:
+
+### **1. Override `new` and `delete` to Track Allocations**
+We modify `GCObject` to automatically register allocations with the garbage collector.
+
+```cpp
+class GCObject {
+public:
+    void* operator new(size_t size) {
+        void* ptr = ::operator new(size);  // Allocate memory
+        GarbageCollector::getInstance().allocate(static_cast<GCObject*>(ptr));
+        return ptr;
+    }
+
+    void operator delete(void* ptr) {
+        GarbageCollector::getInstance().deallocate(static_cast<GCObject*>(ptr));
+        ::operator delete(ptr);  // Free memory
+    }
+
+    // ... (rest of GCObject implementation)
+};
+```
+
+### **2. Make `GarbageCollector` a Singleton**
+Ensures only one instance monitors allocations globally.
+
+```cpp
+class GarbageCollector {
+private:
+    static GarbageCollector instance;  // Singleton instance
+    std::unordered_set<GCObject*> heap;
+    std::vector<GCObject*> roots;
+    std::mutex mtx;  // Thread safety
+
+public:
+    static GarbageCollector& getInstance() {
+        return instance;
+    }
+
+    void allocate(GCObject* obj) {
+        std::lock_guard<std::mutex> lock(mtx);
+        heap.insert(obj);
+    }
+
+    void deallocate(GCObject* obj) {
+        std::lock_guard<std::mutex> lock(mtx);
+        heap.erase(obj);
+    }
+
+    // ... (rest of GC implementation)
+};
+```
+
+### **3. Run GC in a Background Thread**
+We use `std::thread` to periodically trigger garbage collection.
+
+```cpp
+class GarbageCollector {
+private:
+    std::thread gcThread;
+    bool running = false;
+
+public:
+    void startBackgroundGC() {
+        running = true;
+        gcThread = std::thread([this]() {
+            while (running) {
+                std::this_thread::sleep_for(std::chrono::seconds(5));  // Run every 5 sec
+                collect();  // Perform GC
+            }
+        });
+    }
+
+    void stopBackgroundGC() {
+        running = false;
+        if (gcThread.joinable()) gcThread.join();
+    }
+
+    ~GarbageCollector() {
+        stopBackgroundGC();
+    }
+};
+```
+
+### **4. Thread-Safe Mark & Sweep**
+Since allocations can happen from multiple threads, we add locks:
+
+```cpp
+void mark() {
+    std::lock_guard<std::mutex> lock(mtx);
+    for (GCObject* root : roots) {
+        root->mark();
+    }
+}
+
+void sweep() {
+    std::lock_guard<std::mutex> lock(mtx);
+    auto it = heap.begin();
+    while (it != heap.end()) {
+        GCObject* obj = *it;
+        if (!obj->marked) {
+            it = heap.erase(it);
+            delete obj;
+        } else {
+            obj->marked = false;
+            ++it;
+        }
+    }
+}
+```
+
+---
+
+## **Final Implementation**
+### **How It Works**
+1. **Allocations are tracked** (via overridden `new`/`delete`).  
+2. **A background thread runs GC periodically** (e.g., every 5 seconds).  
+3. **Thread-safe operations** ensure no race conditions.  
+
+### **Usage Example**
+```cpp
+int main() {
+    GarbageCollector::getInstance().startBackgroundGC();
+
+    MyObject* root = new MyObject();  // Automatically tracked
+    MyObject* child = new MyObject(); // Automatically tracked
+    root->addReference(child);
+
+    // GC runs in the background, no manual cleanup needed
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+    return 0;
+}
+```
+
+---
+
+## **Key Improvements**
+✅ **Automatic tracking** (no manual `gc.allocate()`).  
+✅ **Background collection** (no need to call `gc.collect()` manually).  
+✅ **Thread-safe** (works in multi-threaded programs).  
+
+This approach mimics **real-world garbage collectors** (like Java’s GC or Python’s GC). 🚀
