@@ -92,7 +92,7 @@ main_executable_EXTERNAL_OBJECTS =
 
 main_executable: CMakeFiles/main_executable.dir/src/main.cpp.o
 main_executable: CMakeFiles/main_executable.dir/build.make
-main_executable: libmyalloc.so
+main_executable: libmyalloc.so.1.0
 main_executable: CMakeFiles/main_executable.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable main_executable"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main_executable.dir/link.txt --verbose=$(VERBOSE)

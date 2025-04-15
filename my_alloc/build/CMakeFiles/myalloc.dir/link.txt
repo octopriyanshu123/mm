@@ -1,1 +1,1 @@
-/usr/bin/c++ -fPIC -shared -Wl,-soname,libmyalloc.so -o libmyalloc.so CMakeFiles/myalloc.dir/src/my_alloc.cpp.o 
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libmyalloc.so.1 -o libmyalloc.so.1.0 CMakeFiles/myalloc.dir/src/my_alloc.cpp.o 

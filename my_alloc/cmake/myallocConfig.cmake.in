@@ -1,0 +1,13 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Handle custom include path
+get_filename_component(myalloc_INCLUDE_DIRS 
+    "${CMAKE_CURRENT_LIST_DIR}/../../include/${PROJECT_NAME}/include"
+    ABSOLUTE
+)
+
+include("${CMAKE_CURRENT_LIST_DIR}/myallocTargets.cmake")
+
+check_required_components(myalloc)

@@ -92,7 +92,7 @@ unit_test_EXTERNAL_OBJECTS =
 
 unit_test: CMakeFiles/unit_test.dir/test/unit_test.cpp.o
 unit_test: CMakeFiles/unit_test.dir/build.make
-unit_test: libmyalloc.so
+unit_test: libmyalloc.so.1.0
 unit_test: /usr/lib/x86_64-linux-gnu/libgtest_main.a
 unit_test: /usr/lib/x86_64-linux-gnu/libgtest.a
 unit_test: CMakeFiles/unit_test.dir/link.txt

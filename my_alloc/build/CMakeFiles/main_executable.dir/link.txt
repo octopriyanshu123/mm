@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/main_executable.dir/src/main.cpp.o -o main_executable  -Wl,-rpath,/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build libmyalloc.so 
+/usr/bin/c++ CMakeFiles/main_executable.dir/src/main.cpp.o -o main_executable  -Wl,-rpath,/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build libmyalloc.so.1.0 
