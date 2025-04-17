@@ -101,6 +101,7 @@
 # install(DIRECTORY include/ DESTINATION ${PROJECT_NAME}/proj/include)
 
 
+
 # cmake_minimum_required(VERSION 3.10)
 # project(my_alloc VERSION 1.0 LANGUAGES CXX)
 
@@ -120,7 +121,15 @@
 
 # # === Build the shared library ===
 # add_library(myalloc SHARED src/my_alloc.cpp)
-# target_include_directories(myalloc PUBLIC include)
+# target_include_directories(myalloc PUBLIC 
+#     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#     $<INSTALL_INTERFACE:include>
+# )
+# set_target_properties(myalloc PROPERTIES
+#     VERSION ${PROJECT_VERSION}
+#     SOVERSION 1
+#     EXPORT_NAME myalloc
+# )
 
 # # === Main executable for examples/demo ===
 # add_executable(main_executable src/main.cpp)
@@ -131,64 +140,8 @@
 # target_link_libraries(unit_test PRIVATE myalloc Threads::Threads GTest::GTest GTest::Main)
 # add_test(NAME UnitTests COMMAND unit_test)
 
-# # === Custom build targets ===
-# add_custom_target(run
-#     COMMAND main_executable
-#     DEPENDS main_executable
-#     COMMENT "Running the main executable")
-
-# add_custom_target(run_tests
-#     COMMAND unit_test
-#     DEPENDS unit_test
-#     COMMENT "Running unit tests")
-
-
-# install(TARGETS myalloc
-#     LIBRARY DESTINATION lib/${PROJECT_NAME}/lib)
-
-# install(DIRECTORY include/
-#     DESTINATION include/${PROJECT_NAME}/include
-#     FILES_MATCHING PATTERN "*.hpp")
-cmake_minimum_required(VERSION 3.10)
-project(my_alloc VERSION 1.0 LANGUAGES CXX)
-
-# Set C++ version
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Enable testing framework
-enable_testing()
-
-# Find required packages
-find_package(Threads REQUIRED)
-find_package(GTest REQUIRED)
-
-# Include directories
-include_directories(include)
-
-# === Build the shared library ===
-add_library(myalloc SHARED src/my_alloc.cpp)
-target_include_directories(myalloc PUBLIC 
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:include>
-)
-set_target_properties(myalloc PROPERTIES
-    VERSION ${PROJECT_VERSION}
-    SOVERSION 1
-    EXPORT_NAME myalloc
-)
-
-# === Main executable for examples/demo ===
-add_executable(main_executable src/main.cpp)
-target_link_libraries(main_executable PRIVATE myalloc Threads::Threads)
-
-# === Unit tests using Google Test ===
-add_executable(unit_test test/unit_test.cpp)
-target_link_libraries(unit_test PRIVATE myalloc Threads::Threads GTest::GTest GTest::Main)
-add_test(NAME UnitTests COMMAND unit_test)
-
-# === Installation ===
-include(GNUInstallDirs)
+# # === Installation ===
+# include(GNUInstallDirs)
 
 # install(TARGETS myalloc
 #     EXPORT myallocTargets
@@ -229,26 +182,169 @@ include(GNUInstallDirs)
 #     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/myalloc
 # )
 
-# Keep your custom installation paths
+# # Keep your custom installation paths
+# # install(TARGETS myalloc
+# #     EXPORT myallocTargets  # Required for find_package
+# #     LIBRARY DESTINATION lib/${PROJECT_NAME}/lib
+# #     ARCHIVE DESTINATION lib/${PROJECT_NAME}/lib
+# #     RUNTIME DESTINATION bin/${PROJECT_NAME}
+# #     INCLUDES DESTINATION include/${PROJECT_NAME}/include
+# # )
+
+# # install(DIRECTORY include/
+# #     DESTINATION include/${PROJECT_NAME}/include
+# #     FILES_MATCHING PATTERN "*.hpp"
+# # )
+
+# # # Package configuration (unchanged)
+# # include(CMakePackageConfigHelpers)
+# # configure_package_config_file(
+# #     cmake/myallocConfig.cmake.in
+# #     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfig.cmake
+# #     INSTALL_DESTINATION lib/${PROJECT_NAME}/cmake
+# # )
+
+# # write_basic_package_version_file(
+# #     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfigVersion.cmake
+# #     VERSION ${PROJECT_VERSION}
+# #     COMPATIBILITY SameMajorVersion
+# # )
+
+# # install(EXPORT myallocTargets
+# #     FILE myallocTargets.cmake
+# #     NAMESPACE myalloc::
+# #     DESTINATION lib/${PROJECT_NAME}/cmake
+# # )
+
+# # install(FILES
+# #     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfig.cmake
+# #     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfigVersion.cmake
+# #     DESTINATION lib/${PROJECT_NAME}/cmake
+# # )
+
+
+# # === Custom build targets ===
+# add_custom_target(run
+#     COMMAND main_executable
+#     DEPENDS main_executable
+#     COMMENT "Running the main executable")
+
+# add_custom_target(run_tests
+#     COMMAND unit_test
+#     DEPENDS unit_test
+#     COMMENT "Running unit tests")
+
+# install(TARGETS myalloc
+#     LIBRARY DESTINATION lib/${PROJECT_NAME}/lib)
+
+# install(DIRECTORY include/
+#     DESTINATION include/${PROJECT_NAME}/include
+#     FILES_MATCHING PATTERN "*.hpp")    
+
+
+
+#-=------------------------------------------------ copy the libmyalloc.so to the /usr/local/lib but not assess by find_package 
+
+# cmake_minimum_required(VERSION 3.10)
+# project(my_alloc VERSION 1.0 LANGUAGES CXX)
+
+# # Set C++ version
+# set(CMAKE_CXX_STANDARD 20)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# # Enable testing framework
+# enable_testing()
+
+# # Find required packages
+# find_package(Threads REQUIRED)
+# find_package(GTest REQUIRED)
+
+# # Include directories
+# include_directories(include)
+
+# # === Build the shared library ===
+# add_library(myalloc SHARED src/my_alloc.cpp)
+# target_include_directories(myalloc PUBLIC include)
+
+# # === Unit tests using Google Test ===
+# add_executable(unit_test test/unit_test.cpp)
+# target_link_libraries(unit_test PRIVATE myalloc Threads::Threads GTest::GTest GTest::Main)
+# add_test(NAME UnitTests COMMAND unit_test)
+
+# # === Custom build targets ===
+# add_custom_target(run
+#     COMMAND main_executable
+#     DEPENDS main_executable
+#     COMMENT "Running the main executable")
+
+# add_custom_target(run_tests
+#     COMMAND unit_test
+#     DEPENDS unit_test
+#     COMMENT "Running unit tests")
+
+
+# install(TARGETS myalloc
+#     LIBRARY DESTINATION lib/${PROJECT_NAME}/lib)
+
+# install(DIRECTORY include/
+#     DESTINATION include/${PROJECT_NAME}/include
+#     FILES_MATCHING PATTERN "*.hpp")
+
+#------------------------------------------------- copy the libmyalloc.so to the /usr/local/lib and access by find_package 
+
+cmake_minimum_required(VERSION 3.10)
+project(my_alloc VERSION 1.0 LANGUAGES CXX)
+
+# Set C++ version
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Enable testing framework
+enable_testing()
+
+# Find required packages
+find_package(Threads REQUIRED)
+find_package(GTest REQUIRED)
+
+# Include directories
+include_directories(include)
+
+# === Build the shared library ===
+add_library(myalloc SHARED src/my_alloc.cpp)
+target_include_directories(myalloc PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+)
+set_target_properties(myalloc PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION 1
+    PUBLIC_HEADER "include/my_alloc.hpp"
+)
+
+# === Unit tests using Google Test ===
+add_executable(unit_test test/unit_test.cpp)
+target_link_libraries(unit_test PRIVATE myalloc Threads::Threads GTest::GTest GTest::Main)
+add_test(NAME UnitTests COMMAND unit_test)
+
+# === Installation ===
 install(TARGETS myalloc
-    EXPORT myallocTargets  # Required for find_package
-    LIBRARY DESTINATION lib/${PROJECT_NAME}/lib
-    ARCHIVE DESTINATION lib/${PROJECT_NAME}/lib
-    RUNTIME DESTINATION bin/${PROJECT_NAME}
-    INCLUDES DESTINATION include/${PROJECT_NAME}/include
+    EXPORT myallocTargets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    PUBLIC_HEADER DESTINATION include/${PROJECT_NAME}
 )
 
-install(DIRECTORY include/
-    DESTINATION include/${PROJECT_NAME}/include
-    FILES_MATCHING PATTERN "*.hpp"
+install(EXPORT myallocTargets
+    FILE myallocTargets.cmake
+    NAMESPACE myalloc::
+    DESTINATION lib/cmake/myalloc
 )
 
-# Package configuration (unchanged)
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-    cmake/myallocConfig.cmake.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/myallocConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfig.cmake
-    INSTALL_DESTINATION lib/${PROJECT_NAME}/cmake
+    INSTALL_DESTINATION lib/cmake/myalloc
 )
 
 write_basic_package_version_file(
@@ -257,33 +353,15 @@ write_basic_package_version_file(
     COMPATIBILITY SameMajorVersion
 )
 
-install(EXPORT myallocTargets
-    FILE myallocTargets.cmake
-    NAMESPACE myalloc::
-    DESTINATION lib/${PROJECT_NAME}/cmake
-)
-
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/myallocConfigVersion.cmake
-    DESTINATION lib/${PROJECT_NAME}/cmake
+    DESTINATION lib/cmake/myalloc
 )
 
-
 # === Custom build targets ===
-add_custom_target(run
-    COMMAND main_executable
-    DEPENDS main_executable
-    COMMENT "Running the main executable")
-
 add_custom_target(run_tests
     COMMAND unit_test
     DEPENDS unit_test
-    COMMENT "Running unit tests")
-
-install(TARGETS myalloc
-    LIBRARY DESTINATION lib/${PROJECT_NAME}/lib)
-
-install(DIRECTORY include/
-    DESTINATION include/${PROJECT_NAME}/include
-    FILES_MATCHING PATTERN "*.hpp")    
+    COMMENT "Running unit tests"
+)

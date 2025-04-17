@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/install")
+  set(CMAKE_INSTALL_PREFIX "/usr/local")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,8 +44,8 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1.0"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so.1.0"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so.1"
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
@@ -54,13 +54,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
            RPATH "")
     endif()
   endforeach()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib" TYPE SHARED_LIBRARY FILES
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
     "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so.1.0"
     "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so.1"
     )
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1.0"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so.1.0"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so.1"
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
@@ -72,98 +72,49 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib" TYPE SHARED_LIBRARY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libmyalloc.so")
     endif()
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/my_alloc/include" TYPE DIRECTORY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/include/" FILES_MATCHING REGEX "/[^/]*\\.hpp$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/my_alloc" TYPE FILE FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/include/my_alloc.hpp")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake/myallocTargets.cmake")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc/myallocTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
-         "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake/myallocTargets.cmake"
-         "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/Export/lib/my_alloc/cmake/myallocTargets.cmake")
+         "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc/myallocTargets.cmake"
+         "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/Export/lib/cmake/myalloc/myallocTargets.cmake")
     if(EXPORT_FILE_CHANGED)
-      file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake/myallocTargets-*.cmake")
+      file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc/myallocTargets-*.cmake")
       if(OLD_CONFIG_FILES)
-        message(STATUS "Old export file \"$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake/myallocTargets.cmake\" will be replaced.  Removing files [${OLD_CONFIG_FILES}].")
+        message(STATUS "Old export file \"$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc/myallocTargets.cmake\" will be replaced.  Removing files [${OLD_CONFIG_FILES}].")
         file(REMOVE ${OLD_CONFIG_FILES})
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake" TYPE FILE FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/Export/lib/my_alloc/cmake/myallocTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc" TYPE FILE FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/Export/lib/cmake/myalloc/myallocTargets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake" TYPE FILE FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/Export/lib/my_alloc/cmake/myallocTargets-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc" TYPE FILE FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/CMakeFiles/Export/lib/cmake/myalloc/myallocTargets-noconfig.cmake")
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/cmake" TYPE FILE FILES
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/myalloc" TYPE FILE FILES
     "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/myallocConfig.cmake"
     "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/myallocConfigVersion.cmake"
     )
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1.0"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1"
-      )
-    if(EXISTS "${file}" AND
-       NOT IS_SYMLINK "${file}")
-      file(RPATH_CHECK
-           FILE "${file}"
-           RPATH "")
-    endif()
-  endforeach()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib" TYPE SHARED_LIBRARY FILES
-    "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so.1.0"
-    "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so.1"
-    )
-  foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1.0"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so.1"
-      )
-    if(EXISTS "${file}" AND
-       NOT IS_SYMLINK "${file}")
-      if(CMAKE_INSTALL_DO_STRIP)
-        execute_process(COMMAND "/usr/bin/strip" "${file}")
-      endif()
-    endif()
-  endforeach()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so"
-         RPATH "")
-  endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib" TYPE SHARED_LIBRARY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/libmyalloc.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/my_alloc/lib/libmyalloc.so")
-    endif()
-  endif()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/my_alloc/include" TYPE DIRECTORY FILES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/include/" FILES_MATCHING REGEX "/[^/]*\\.hpp$")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)

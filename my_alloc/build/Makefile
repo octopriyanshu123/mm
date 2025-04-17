@@ -185,19 +185,6 @@ myalloc/fast:
 .PHONY : myalloc/fast
 
 #=============================================================================
-# Target rules for targets named main_executable
-
-# Build rule for target.
-main_executable: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main_executable
-.PHONY : main_executable
-
-# fast build rule for target.
-main_executable/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_executable.dir/build.make CMakeFiles/main_executable.dir/build
-.PHONY : main_executable/fast
-
-#=============================================================================
 # Target rules for targets named unit_test
 
 # Build rule for target.
@@ -211,19 +198,6 @@ unit_test/fast:
 .PHONY : unit_test/fast
 
 #=============================================================================
-# Target rules for targets named run
-
-# Build rule for target.
-run: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run
-.PHONY : run
-
-# fast build rule for target.
-run/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
-.PHONY : run/fast
-
-#=============================================================================
 # Target rules for targets named run_tests
 
 # Build rule for target.
@@ -235,30 +209,6 @@ run_tests: cmake_check_build_system
 run_tests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
 .PHONY : run_tests/fast
-
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_executable.dir/build.make CMakeFiles/main_executable.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_executable.dir/build.make CMakeFiles/main_executable.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_executable.dir/build.make CMakeFiles/main_executable.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
 
 src/my_alloc.o: src/my_alloc.cpp.o
 .PHONY : src/my_alloc.o
@@ -321,14 +271,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... run"
 	@echo "... run_tests"
-	@echo "... main_executable"
 	@echo "... myalloc"
 	@echo "... unit_test"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
 	@echo "... src/my_alloc.o"
 	@echo "... src/my_alloc.i"
 	@echo "... src/my_alloc.s"
