@@ -1,0 +1,10 @@
+my_alloc::my_alloc mm
+void* ptr  = mm.heap_alloc()
+bool mm.heap_free(ptr);
+bool mm.heap_status();
+string = mm.read(file.txt)
+bool = mm.write(file.txt,"DATA",int append,int newline)
+bool = mm.copy(desFile.txt, srcFile.txt)
+bool = share
+
+mmap

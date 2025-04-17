@@ -5,4 +5,4 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 add_test(UnitTests "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/build/unit_test")
-set_tests_properties(UnitTests PROPERTIES  _BACKTRACE_TRIPLES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/CMakeLists.txt;326;add_test;/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/CMakeLists.txt;0;")
+set_tests_properties(UnitTests PROPERTIES  _BACKTRACE_TRIPLES "/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/CMakeLists.txt;327;add_test;/home/octobotics/Desktop/Working/memory_management/mm/my_alloc/CMakeLists.txt;0;")

@@ -1,13 +1,13 @@
 # Custom Memory Allocation Library
 ## **Overview**
-The `my_alloc` project aims to implement a custom memory allocation library that offers fine-grained control over memory management, file I/O, inter-process communication (IPC), garbage collection, and more. The goal is to create a highly flexible, efficient, and scalable allocator with custom memory management techniques.
+The `my_alloc` project aims to implement a custom memory allocation library that offers fine-grained control over memory management by memory allocator, file I/O, inter-process communication (IPC). The goal is to create a highly flexible, efficient, and scalable allocator with custom memory management techniques.
 
 ---
 
 ## **Features and Implementation**
 
-### 1. **Memory Allocation Using `sbrk` and `brk`**
-   - **Purpose**: Implement a memory allocator similar to `malloc`/`free` using `sbrk` and `brk` system calls to manage the program's heap.
+### 1. **Memory Allocation Using `sbrk` and `brk` System Call**
+   - **Purpose**: Implement a memory allocator `heep_alloc()` using `sbrk()` and `brk()` system calls to manage the program's heap.
    - **Challenges**: 
      - `sbrk` is deprecated on some platforms.
      - Fragmentation management.
@@ -15,11 +15,10 @@ The `my_alloc` project aims to implement a custom memory allocation library that
      - Implement memory allocation using `sbrk` (or `mmap` as an alternative).
      - Consider using **buddy allocation**, **first-fit**, or **best-fit** strategies to reduce fragmentation.
      - Track allocated and free blocks using **free lists**.
-
 ---
 
 ### 2. **Free Memory After Use (Delete Memory)**
-   - **Purpose**: Implement a `free()` function to release memory back to the system after use.
+   - **Purpose**: Implement a `heep_free()` function to release memory back to reuse.
    - **Challenges**:
      - Handling fragmentation and reusing freed blocks.
      - Safely managing errors like double-free or invalid free.
@@ -62,27 +61,6 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 
 ---
 
-### 6. **Garbage Collector**
-   - **Purpose**: Automatically manage and reclaim memory by detecting and freeing unused objects.
-   - **Challenges**:
-     - Potential conflicts with custom allocators and manual memory management.
-     - Performance overhead introduced by garbage collection.
-     - Implement **mark-and-sweep** or **reference counting** garbage collection.
-     - Consider **generational garbage collection** to optimize performance.
-     - Implement **weak references** for objects that should not be kept alive by the garbage collector.
-
----
-
-### 7. **Swap Data from Stack to Heap (and vice versa)**
-   - **Purpose**: Allow data to be dynamically moved between the stack and the heap.
-   - **Challenges**:
-     - Managing memory ownership and ensuring safe access.
-     - Potential conflicts with stack-based memory (automatic) and heap-based memory (manual).
-     - Dynamically allocate memory on the heap and copy stack data to it.
-     - Track **ownership** to ensure proper cleanup.
-     - Handle memory access **safely** (e.g., using smart pointers or reference counting).
-
----
 
 ### **Features**
 
@@ -103,11 +81,6 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 - Keep track of all allocated blocks and check for any unfreed memory at program exit.
 - Provide **error messages** or warnings if memory is not freed properly.
 - Use **debugging tools** to inspect memory allocation patterns and detect leaks.
-
-#### 4. **Integration with Standard Allocators**
-   - Integrate with standard allocators (like `malloc`/`free`) for seamless memory management.
-- Override system memory functions using **preload libraries** or **dynamic linking** (`dlopen`/`dlsym`).
-- Ensure compatibility with existing C/C++ programs using standard allocators.
   
 #### 5. **Documentation and Debugging Tools**
    - Provide comprehensive documentation for your memory allocator, and tools to assist with debugging.
@@ -121,12 +94,10 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 
 ### **Project Milestones**
 
-1. **Basic Memory Allocation**: Implement `malloc`/`free` using `sbrk` or `mmap`.
+1. **Basic Memory Allocation**: Implement `heap_alloc()`/`heap_free()` using `sbrk` or `mmap`.
 2. **Memory Management Features**: Add free memory management, fragmentation handling, and memory tracking.
 3. **File I/O**: Implement buffered read/write to files and memory-mapped files for large data.
 4. **IPC Shared Memory**: Implement shared memory regions and synchronize inter-process communication.
-5. **Garbage Collection**: Implement automatic memory management and handle orphaned objects.
-6. **Advanced Features**: Add thread safety, performance optimization, and memory leak detection.
 7. **Documentation and Debugging Tools**: Create comprehensive documentation and debugging tools for users.
 
 
