@@ -8,3 +8,37 @@ bool = mm.copy(desFile.txt, srcFile.txt)
 bool = share
 
 mmap
+
+c++
+atomic operation 
+memory ordaring
+thered safty
+double buffer
+
+
+writing the test case 3 way to sefmentation fault 
+profiller tool 
+
+
+Robotics
+
+extended kalman filter 
+stero camera and algo
+iterative deep a*
+biggest probblam a** have 
+keep a large q of unvisited node
+lock free circular buffer
+
+Linux Question 
+
+how to unmount the modules in linux
+
+
+apt 
+working 
+agpt -get
+drawback
+
+
+Linux boot process
+de

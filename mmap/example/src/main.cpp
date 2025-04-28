@@ -154,106 +154,67 @@
 // }
 
 
-#include <my_alloc/my_alloc.hpp>
-#include <iostream>
-#include <unistd.h>
-#include "ds.hpp"
 
-#define N 10
+// std::mutex SharedMemory::creation_mutex;
 
+// // Example usage
 // int main() {
-//     void* current_brk = sbrk(0);
-//     std::cout << "Starting Pointer of the heap is " << current_brk << std::endl;
 
-//     void* ptrs[N] = {0};
+//     BufferedFile file("test.bin", "w+", 1024);
+//     const char* data = "Hello, buffered world!";
+//     file.write(data, strlen(data));
+//     file.seek(0);
+//     // try{
+//     //         BufferedFile file("test.bin", "w+", 1024);
+//     //         const char* data = "Hello, buffered world!";
+//     //         file.write(data, strlen(data));
+//     //         file.seek(0);
+            
+//     //         char buffer[256] = {0};
+//     //         file.read(buffer, sizeof(buffer));
+//     //         std::cout << "Read from file: " << buffer << std::endl;
+//     //     }
 
-//     for (int i = 0; i < N; i++) {
-//         ptrs[i] = my_alloc::heap_alloc(i);
-//     }
-
-//     for (int i = 0; i < N; i++) {
-//         my_alloc::heap_free(ptrs[i]);
-//     }
-
-//     void* p = my_alloc::heap_alloc(100);
-//     if (p == NULL) {
-//         std::cout << "Failed to allocate memory\n";
-//     }
-
-//     my_alloc::heap_dump_stats();
-    
-
-
-
-
-
-
-
+//         // Shared memory example
+//     //     {
+//     //         bool is_parent = true;
+//     //         SharedMemory shm("test_shared_mem", 4096, true);
+            
+//     //         if (fork() == 0) {
+//     //             // Child process
+//     //             is_parent = false;
+//     //             SharedMemory shm_child("test_shared_mem", 4096);
+//     //             int* counter = shm_child.get_as<int>();
+                
+//     //             for (int i = 0; i < 10; ++i) {
+//     //                 int expected = *counter;
+//     //                 while (!shm_child.atomic_compare_exchange(0, expected, expected + 1)) {
+//     //                     usleep(1000);
+//     //                 }
+//     //                 std::cout << "Child incremented counter to " << expected + 1 << std::endl;
+//     //                 usleep(500000);
+//     //             }
+//     //             exit(0);
+//     //         } else {
+//     //             // Parent process
+//     //             int* counter = shm.get_as<int>();
+//     //             *counter = 0;
+                
+//     //             for (int i = 0; i < 5; ++i) {
+//     //                 int val = shm.atomic_load<int>(0);
+//     //                 shm.atomic_store<int>(0, val + 1);
+//     //                 std::cout << "Parent incremented counter to " << val + 1 << std::endl;
+//     //                 usleep(1000000);
+//     //             }
+                
+//     //             wait(nullptr); // Wait for child
+//     //             std::cout << "Final counter value: " << *counter << std::endl;
+//     //         }
+//     //     }
+//     // } catch (const std::exception& e) {
+//     //     std::cerr << "Error: " << e.what() << std::endl;
+//     //     return 1;
+//     // }
 
 //     return 0;
 // }
-
-
-std::mutex SharedMemory::creation_mutex;
-
-// Example usage
-int main() {
-
-    BufferedFile file("test.bin", "w+", 1024);
-    const char* data = "Hello, buffered world!";
-    file.write(data, strlen(data));
-    file.seek(0);
-    // try{
-    //         BufferedFile file("test.bin", "w+", 1024);
-    //         const char* data = "Hello, buffered world!";
-    //         file.write(data, strlen(data));
-    //         file.seek(0);
-            
-    //         char buffer[256] = {0};
-    //         file.read(buffer, sizeof(buffer));
-    //         std::cout << "Read from file: " << buffer << std::endl;
-    //     }
-
-        // Shared memory example
-    //     {
-    //         bool is_parent = true;
-    //         SharedMemory shm("test_shared_mem", 4096, true);
-            
-    //         if (fork() == 0) {
-    //             // Child process
-    //             is_parent = false;
-    //             SharedMemory shm_child("test_shared_mem", 4096);
-    //             int* counter = shm_child.get_as<int>();
-                
-    //             for (int i = 0; i < 10; ++i) {
-    //                 int expected = *counter;
-    //                 while (!shm_child.atomic_compare_exchange(0, expected, expected + 1)) {
-    //                     usleep(1000);
-    //                 }
-    //                 std::cout << "Child incremented counter to " << expected + 1 << std::endl;
-    //                 usleep(500000);
-    //             }
-    //             exit(0);
-    //         } else {
-    //             // Parent process
-    //             int* counter = shm.get_as<int>();
-    //             *counter = 0;
-                
-    //             for (int i = 0; i < 5; ++i) {
-    //                 int val = shm.atomic_load<int>(0);
-    //                 shm.atomic_store<int>(0, val + 1);
-    //                 std::cout << "Parent incremented counter to " << val + 1 << std::endl;
-    //                 usleep(1000000);
-    //             }
-                
-    //             wait(nullptr); // Wait for child
-    //             std::cout << "Final counter value: " << *counter << std::endl;
-    //         }
-    //     }
-    // } catch (const std::exception& e) {
-    //     std::cerr << "Error: " << e.what() << std::endl;
-    //     return 1;
-    // }
-
-    return 0;
-}

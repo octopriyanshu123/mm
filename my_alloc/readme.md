@@ -4,7 +4,7 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 
 ---
 
-## **Features and Implementation**
+## **Implementation**
 
 ### 1. **Memory Allocation Using `sbrk` and `brk` System Call**
    - **Purpose**: Implement a memory allocator `heep_alloc()` using `sbrk()` and `brk()` system calls to manage the program's heap.
@@ -28,29 +28,7 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 
 ---
 
-### 3. **File I/O: Reading and Writing Data Using a Buffer**
-   - **Purpose**: Implement buffered reading and writing of data from/to files.
-   - **Challenges**:
-     - Efficient buffering to minimize system calls.
-     - Handling large files.
-     - Use **circular buffers** for continuous read/write operations.
-     - Implement **memory-mapped files** (`mmap`) for large files to directly map them into memory, improving performance.
-     - Implement **flushing** to ensure data integrity on crash or program exit.
-
----
-
-### 4. **IPC: Shared Memory Region in RAM**
-   - **Purpose**: Implement shared memory in RAM for inter-process communication (IPC).
-   - **Challenges**:
-     - Memory access synchronization across processes.
-     - Preventing race conditions.
-     - Use **POSIX shared memory** (`shm_open`, `mmap`) or **System V shared memory** (`shmget`, `shmat`).
-     - Implement synchronization using **mutexes** or **semaphores** to ensure safe access.
-     - Provide an API for easy memory allocation and deallocation in shared memory.
-
----
-
-### 5. **Track Memory Usage in the Heap**
+### 3. **Track Memory Usage in the Heap**
    - **Purpose**: Track allocated memory and monitor heap usage.
    - **Challenges**:
      - Efficient memory tracking without introducing overhead.
@@ -62,7 +40,7 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 ---
 
 
-### **Features**
+## **Features**
 
 #### 1. **Thread Safety**
    - Ensure that the allocator is thread-safe when used in multi-threaded environments.
@@ -82,26 +60,20 @@ The `my_alloc` project aims to implement a custom memory allocation library that
 - Provide **error messages** or warnings if memory is not freed properly.
 - Use **debugging tools** to inspect memory allocation patterns and detect leaks.
   
-#### 5. **Documentation and Debugging Tools**
-   - Provide comprehensive documentation for your memory allocator, and tools to assist with debugging.
-- Provide detailed usage documentation for all features and API functions.
-- Implement a **logging mechanism** to track memory allocations, deallocations, and errors.
-- Create a **visualization tool** for monitoring heap usage and fragmentation over time.
 
 
 
 ---
 
-### **Project Milestones**
 
-1. **Basic Memory Allocation**: Implement `heap_alloc()`/`heap_free()` using `sbrk` or `mmap`.
-2. **Memory Management Features**: Add free memory management, fragmentation handling, and memory tracking.
-3. **File I/O**: Implement buffered read/write to files and memory-mapped files for large data.
-4. **IPC Shared Memory**: Implement shared memory regions and synchronize inter-process communication.
-7. **Documentation and Debugging Tools**: Create comprehensive documentation and debugging tools for users.
-
+This documentation provides an overview of the key features and design decisions for the `my_alloc` project. As you implement each feature, refer to this documentation to ensure you stay on track and address potential challenges. It's important to incrementally build and test each component, starting with basic memory allocation and progressing. As the project grows, keep iterating, benchmarking, and optimizing for performance.
 
 ---
 
+Looking ahead, the `my_alloc` framework is well-positioned to support **advanced memory management features**, including:
 
-This documentation provides an overview of the key features and design decisions for the `my_alloc` project. As you implement each feature, refer to this documentation to ensure you stay on track and address potential challenges. It's important to incrementally build and test each component, starting with basic memory allocation and progressing to more advanced features like garbage collection and IPC. As the project grows, keep iterating, benchmarking, and optimizing for performance.
+- **Garbage Collection**: **Integration of automatic or semi-automatic garbage collection strategies** (e.g., **mark-and-sweep**, **reference counting**) to manage object lifecycles. This will automate the process of reclaiming unused memory, reducing the need for explicit memory management and improving application stability by preventing memory leaks.
+
+- **Inter-Process Communication (IPC)**: **Support for shared memory regions** (e.g., using `shm_open`, `mmap`) to enable memory sharing between processes. This could include optional **synchronization primitives** like semaphores or mutexes to coordinate access and ensure thread safety across processes.
+
+---
